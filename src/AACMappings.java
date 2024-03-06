@@ -138,7 +138,7 @@ public class AACMappings {
     */
     public void writeToFile​(String filename){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             KVPair<String, AACCategory>[] cats = this.categories.getPairs();
             for (int i = 0; i < this.categories.size(); i++){
                 writer.write(cats[i].getKey() + " " + cats[i].getValue().getCategory());
