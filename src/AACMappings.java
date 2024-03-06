@@ -139,11 +139,14 @@ public class AACMappings {
     public void writeToFile​(String filename){
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
-            KVPair<String, AACCategory>[] individualCat = this.categories.getPairs();
+            KVPair<String, AACCategory>[] cats = this.categories.getPairs();
             for (int i = 0; i < this.categories.size(); i++){
-                writer.write(individualCat[i].getKey() + " " + individualCat[i].getValue().getCategory());
-                for (int j = 0; j < individualCat.length; j++){
-                    writer.write(">" + individualCat[j].getKey() + " " + individualCat[j].getValue());
+                writer.write(cats[i].getKey() + " " + cats[i].getValue().getCategory());
+                writer.newLine();
+                for (int j = 0; j < cats[i].getValue().items.size(); j++){
+                    AACCategory cat = cats[i].getValue();
+                    writer.write(">" + cat.items.getPairs()[j].getKey() + " " + cat.items.getPairs()[j].getValue());
+                    writer.newLine();
                 }
             }
             writer.close();
