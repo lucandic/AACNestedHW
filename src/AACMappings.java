@@ -82,9 +82,12 @@ public class AACMappings {
         try {
             if (this.getCurrentCategory().equals("")) {
                 String[] images = new String[this.categories.size()];
+                images = this.categories.getKeys();
+                /*
                 for (int i = 0; i < this.categories.size(); i++){
                     images[i] = this.categories.getPairs()[i].getKey(); 
                 }
+                */
                 return images;
             } else {
                 return this.curCategory.getImages();
@@ -143,11 +146,14 @@ public class AACMappings {
             for (int i = 0; i < this.categories.size(); i++){
                 writer.write(cats[i].getKey() + " " + cats[i].getValue().getCategory());
                 writer.newLine();
+                String[] keys = this.categories.getKeys();
                 for (int j = 0; j < cats[i].getValue().items.size(); j++){
-                    AACCategory cat = cats[i].getValue();
-                    writer.write(">" + cat.items.getPairs()[j].getKey() + " " + cat.items.getPairs()[j].getValue());
+                    //AACCategory cat = cats[i].getValue();
+                    writer.write(">" + keys[j] + " " + this.categories.get(keys[j]));
                     writer.newLine();
                 }
+                //cat.items.getPairs()[j].getKey();
+                //cat.items.getPairs()[j].getValue()
             }
             writer.close();
         } catch (Exception e){

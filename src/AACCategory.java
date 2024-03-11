@@ -67,9 +67,12 @@ public class AACCategory {
      */
     public String[] getImages(){
         String[] images = new String[this.items.size()];
+        images = this.items.getKeys();
+        /*
         for (int i = 0; i < this.items.size(); i++){
             images[i] = this.items.getPairs()[i].getKey();
         }
+        */
         return images;
     } // getImages()
 
