@@ -1,6 +1,7 @@
 package structures;
 
 import static java.lang.reflect.Array.newInstance;
+import java.lang.reflect.Array;
 
 /**
  * A basic implementation of Associative Arrays with keys of type K
@@ -145,7 +146,21 @@ public class AssociativeArray<K, V> {
     }
     return false;
   } // hasKey(K)
-  
+
+  /**
+   * Returns all keys
+   */
+  @SuppressWarnings("unchecked")
+  public K[] getKeys(){
+    if (this.pairs.length == 0) {
+      return null;
+    }
+    K[] keys = (K[]) Array.newInstance(pairs[0].getKey().getClass(), this.pairs.length);
+    for (int i = 0; i < this.pairs.length; i++) {
+      keys[i] = this.pairs[i].getKey();
+    }
+    return keys;
+  }
 
   /**
    * Remove the key/value pair associated with a key. Future calls
