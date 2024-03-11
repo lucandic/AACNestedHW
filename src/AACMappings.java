@@ -17,13 +17,22 @@ import structures.KVPair;
 
 public class AACMappings {
 
+  // +--------+------------------------------------------------------
+  // | Fields |
+  // +--------+
+  /*
+   * The current category we are in 
+   */
     AACCategory curCategory;
+    /*
+     * All categories that are being displayed on the homepage
+     */
     AssociativeArray<String,AACCategory> categories;
     //AACCategory categories;
 
-    /* 
-     * constructor
-     */
+  // +--------------+------------------------------------------------
+  // | Constructors |
+  // +--------------+
     public AACMappings(String filename){
         try {
             Scanner scanner = new Scanner(new File(filename));
@@ -50,19 +59,21 @@ public class AACMappings {
         } catch (Exception e){}
     } // AACMappings(filename)
 
+  // +----------------+----------------------------------------------
+  // | Methods |
+  // +----------------+
     /*
      * If currently in home screen: create a new category with the given image and name.
      * If currently in another category: add the image and text to speak to the currently shown category
     */
     public void add​(String imageLoc, String text){
         try {
-            if (this.getCurrentCategory().equals("")) {
+            if (this.curCategory == null) {
                 this.categories.set(imageLoc, new AACCategory(text));
             } else {
                 this.curCategory.addItem​(imageLoc, text);
             }
-        } catch (Exception e){
-        }
+        } catch (Exception e){}
     } // add(imageLoc, text)	
    
     /*
@@ -101,10 +112,10 @@ public class AACMappings {
     public String getText​(String imageLoc){
         try {
             // if currently in homescreen
-            if (this.getCurrentCategory().equals("")) {
+            if (this.curCategory == null) {
                 //this.curCategory = home.;
                 this.curCategory = this.categories.get(imageLoc);
-                return this.categories.get(imageLoc).name;
+                return this.curCategory.getCategory();
             // if not in homescreen
             } else {
                 return this.curCategory.getText​(imageLoc);

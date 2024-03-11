@@ -13,9 +13,21 @@ import structures.AssociativeArray;
 
 public class AACCategory {
 
+  // +--------+------------------------------------------------------
+  // | Fields |
+  // +--------+
+    /*
+     * The name of the category
+     */
     String name;
+    /*
+     * Items in the category
+     */
     AssociativeArray<String, String> items;
 
+  // +--------------+------------------------------------------------
+  // | Constructors |
+  // +--------------+
     /* 
      * Creates a new empty category with the given name
     */
@@ -24,6 +36,9 @@ public class AACCategory {
         this.items = new AssociativeArray<String, String>();
     } // AACCategory(name)
     
+  // +----------------+----------------------------------------------
+  // | Methods |
+  // +----------------+
     /*
      * Adds the mapping of the imageLoc to the text to the category.
      */
