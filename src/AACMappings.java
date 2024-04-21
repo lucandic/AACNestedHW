@@ -17,22 +17,13 @@ import structures.KVPair;
 
 public class AACMappings {
 
-  // +--------+------------------------------------------------------
-  // | Fields |
-  // +--------+
-  /*
-   * The current category we are in 
-   */
     AACCategory curCategory;
-    /*
-     * All categories that are being displayed on the homepage
-     */
     AssociativeArray<String,AACCategory> categories;
     //AACCategory categories;
 
-  // +--------------+------------------------------------------------
-  // | Constructors |
-  // +--------------+
+    /* 
+     * constructor
+     */
     public AACMappings(String filename){
         try {
             Scanner scanner = new Scanner(new File(filename));
@@ -59,21 +50,19 @@ public class AACMappings {
         } catch (Exception e){}
     } // AACMappings(filename)
 
-  // +----------------+----------------------------------------------
-  // | Methods |
-  // +----------------+
     /*
      * If currently in home screen: create a new category with the given image and name.
      * If currently in another category: add the image and text to speak to the currently shown category
     */
     public void add​(String imageLoc, String text){
         try {
-            if (this.curCategory == null) {
+            if (this.getCurrentCategory().equals("")) {
                 this.categories.set(imageLoc, new AACCategory(text));
             } else {
                 this.curCategory.addItem​(imageLoc, text);
             }
-        } catch (Exception e){}
+        } catch (Exception e){
+        }
     } // add(imageLoc, text)	
    
     /*
@@ -93,12 +82,9 @@ public class AACMappings {
         try {
             if (this.getCurrentCategory().equals("")) {
                 String[] images = new String[this.categories.size()];
-                images = this.categories.getKeys();
-                /*
                 for (int i = 0; i < this.categories.size(); i++){
                     images[i] = this.categories.getPairs()[i].getKey(); 
                 }
-                */
                 return images;
             } else {
                 return this.curCategory.getImages();
@@ -115,10 +101,10 @@ public class AACMappings {
     public String getText​(String imageLoc){
         try {
             // if currently in homescreen
-            if (this.curCategory == null) {
+            if (this.getCurrentCategory().equals("")) {
                 //this.curCategory = home.;
                 this.curCategory = this.categories.get(imageLoc);
-                return this.curCategory.getCategory();
+                return this.categories.get(imageLoc).name;
             // if not in homescreen
             } else {
                 return this.curCategory.getText​(imageLoc);
@@ -157,14 +143,11 @@ public class AACMappings {
             for (int i = 0; i < this.categories.size(); i++){
                 writer.write(cats[i].getKey() + " " + cats[i].getValue().getCategory());
                 writer.newLine();
-                String[] keys = this.categories.getKeys();
                 for (int j = 0; j < cats[i].getValue().items.size(); j++){
-                    //AACCategory cat = cats[i].getValue();
-                    writer.write(">" + keys[j] + " " + this.categories.get(keys[j]));
+                    AACCategory cat = cats[i].getValue();
+                    writer.write(">" + cat.items.getPairs()[j].getKey() + " " + cat.items.getPairs()[j].getValue());
                     writer.newLine();
                 }
-                //cat.items.getPairs()[j].getKey();
-                //cat.items.getPairs()[j].getValue()
             }
             writer.close();
         } catch (Exception e){
